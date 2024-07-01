@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.post('/create-course', courseControllers.handleCreateCourse);
 
+router.get('/', courseControllers.handleGetCourses);
+
 router.get('/:courseId', courseControllers.handleGetCourseWithReview);
 
 const courseRoutes = router;

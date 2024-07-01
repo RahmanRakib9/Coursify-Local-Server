@@ -21,6 +21,25 @@ async function handleCreateCourse(
   }
 }
 
+async function handleGetCourses(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const courses = await courseServices.getCourses();
+
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: 'Courses retrieved successfully',
+      courses,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 async function handleGetCourseWithReview(
   req: Request,
   res: Response,
@@ -43,6 +62,7 @@ async function handleGetCourseWithReview(
 
 const courseControllers = {
   handleCreateCourse,
+  handleGetCourses,
   handleGetCourseWithReview,
 };
 export default courseControllers;
