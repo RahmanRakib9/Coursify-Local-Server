@@ -21,7 +21,28 @@ async function handleCreateCourse(
   }
 }
 
+async function handleGetCourseWithReview(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const courseId = req.params.courseId;
+    const course = await courseServices.getCourseWithReviews(courseId);
+
+    res.status(200).json({
+      success: true,
+      statusCode: 200,
+      message: 'Course and Reviews retrieved successfully',
+      course,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 const courseControllers = {
   handleCreateCourse,
+  handleGetCourseWithReview,
 };
 export default courseControllers;

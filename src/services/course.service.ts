@@ -6,7 +6,13 @@ const createCourse = async (coursePayload: ICourse) => {
   return course;
 };
 
+const getCourseWithReviews = async (courseId: string) => {
+  const course = await Course.findById(courseId);
+  return course;
+};
+
 const courseServices = {
   createCourse,
+  getCourseWithReviews,
 };
 export default courseServices;

@@ -1,12 +1,11 @@
 import express from 'express';
-import courseCategoryControllers from '../controllers/courseCategory.controller';
+import courseControllers from '../controllers/course.controller';
 
 const router = express.Router();
 
-router.post(
-  '/create-course',
-  courseCategoryControllers.handleCreateCourseCategory,
-);
+router.post('/create-course', courseControllers.handleCreateCourse);
+
+router.get('/:courseId', courseControllers.handleGetCourseWithReview);
 
 const courseRoutes = router;
 export default courseRoutes;
