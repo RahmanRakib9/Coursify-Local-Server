@@ -12,7 +12,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 /** Application Routes */
-app.use('/api/v1/course-categories', courseCategoryRoutes);
+app.use('/api/v1/categories', courseCategoryRoutes);
 
 app.use('/api/v1/courses', courseRoutes);
 

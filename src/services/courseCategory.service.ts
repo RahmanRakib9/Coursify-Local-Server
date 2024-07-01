@@ -6,7 +6,13 @@ const createCourseCategory = async (courseCategoryPayload: ICourseCategory) => {
   return courseCategory;
 };
 
+const getAllCategories = async () => {
+  const categories = await CourseCategory.find();
+  return categories;
+};
+
 const courseCategoryServices = {
   createCourseCategory,
+  getAllCategories,
 };
 export default courseCategoryServices;

@@ -4,9 +4,11 @@ import courseCategoryControllers from '../controllers/courseCategory.controller'
 const router = express.Router();
 
 router.post(
-  '/create-course-category',
+  '/create-category',
   courseCategoryControllers.handleCreateCourseCategory,
 );
+
+router.get('/', courseCategoryControllers.handleGetAllCategories);
 
 const courseCategoryRoutes = router;
 export default courseCategoryRoutes;
