@@ -10,6 +10,7 @@ const courseSchema = new Schema<ICourse>({
   },
   categoryId: {
     type: Schema.Types.ObjectId,
+    ref: 'CourseCategory',
   },
   price: {
     type: Number,

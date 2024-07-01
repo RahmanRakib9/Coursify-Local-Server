@@ -4,6 +4,7 @@ import IReview from '../interfaces/review.interface';
 const reviewSchema = new Schema<IReview>({
   courseId: {
     type: Schema.Types.ObjectId,
+    ref: 'Course',
   },
   rating: {
     type: Number,
