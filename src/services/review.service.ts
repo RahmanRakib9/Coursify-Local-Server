@@ -6,7 +6,13 @@ const createReview = async (reviewPayload: IReview) => {
   return review;
 };
 
+const getReviews = async () => {
+  const reviews = await Review.find();
+  return reviews;
+};
+
 const reviewServices = {
   createReview,
+  getReviews,
 };
 export default reviewServices;
