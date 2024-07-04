@@ -1,0 +1,49 @@
+// page and the limit will come from the client side
+/api/v1/entity?page=1&limit=10
+-> query {page:1,limit:10} in this case (1-10) and (skip=0)
+
+/api/v1/entity?page=2&limit=10
+-> query {page:2,limit:10} in this case (11-20) and (skip=10)
+
+/api/v1/entity?page=3&limit=10
+-> query {page:3,limit:10} in this case (21-30) and (skip=20)
+
+
+//
+let page=1
+let limit=1
+let skip=0
+
+if(query.limit)
+{
+    limit=Number(query.limit)
+}
+
+if(query.page)
+{
+    page=Number(query.page)
+    skip=(page-1)*limit
+}
+
+const paginateQuery=entity.skip(skip)
+
+const limitQuery=await paginateQuery.limit(limit)
+
+
+// calculation for skip
+limit=10,page=1,skip=(1-1)*10
+
+limit=10,page=2,skip=(2-1)*10
+
+limit=10,page=3,skip=(3-1)*10
+
+limit=10,page=n,skip=(page-1)*limit
+
+
+// algorithm for pagination
+1. get a query obj from client
+2. extract the page and limit field from the query object (limit and page will be number type)
+3. if no page and limit sent from the client side then use default page and limit number
+4. calculate skip items (by default skip will 0)
+5. calculate paginateQuery
+6. calculate limitQuery and resolve the promise

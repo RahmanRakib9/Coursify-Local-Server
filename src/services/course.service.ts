@@ -9,17 +9,37 @@ const createCourse = async (coursePayload: ICourse) => {
 const getCourses = async (query: Record<string, unknown>) => {
   // search by these following parameter
   const searchableFields = ['title', 'language', 'provider'];
+  // default search term is empty string
   let searchTerm = '';
+  // pagination info
+  let page = 1;
+  let limit = 1;
+  let skip = 0;
 
   if (query?.searchTerm) {
     searchTerm = query?.searchTerm as string;
   }
 
-  const courses = await Course.find({
+  if (query.limit) {
+    limit = Number(query.limit);
+  }
+
+  if (query.page) {
+    page = Number(query.page);
+    skip = (page - 1) * limit;
+  }
+
+  const searchedCourses = Course.find({
     $or: searchableFields.map((field) => ({
       [field]: { $regex: searchTerm, $options: 'i' },
     })),
   });
+
+  const paginateQuery = searchedCourses.skip(skip);
+  const limitQuery = await paginateQuery.limit(limit);
+
+  const courses = limitQuery;
+
   return courses;
 };
 
