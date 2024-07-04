@@ -27,7 +27,8 @@ async function handleGetCourses(
   next: NextFunction,
 ) {
   try {
-    const courses = await courseServices.getCourses();
+    const searchTerm = req.query;
+    const courses = await courseServices.getCourses(searchTerm);
 
     res.status(200).json({
       success: true,

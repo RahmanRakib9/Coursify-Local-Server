@@ -6,8 +6,20 @@ const createCourse = async (coursePayload: ICourse) => {
   return course;
 };
 
-const getCourses = async () => {
-  const courses = await Course.find();
+const getCourses = async (query: Record<string, unknown>) => {
+  // search by these following parameter
+  const searchableFields = ['title', 'language', 'provider'];
+  let searchTerm = '';
+
+  if (query?.searchTerm) {
+    searchTerm = query?.searchTerm as string;
+  }
+
+  const courses = await Course.find({
+    $or: searchableFields.map((field) => ({
+      [field]: { $regex: searchTerm, $options: 'i' },
+    })),
+  });
   return courses;
 };
 
