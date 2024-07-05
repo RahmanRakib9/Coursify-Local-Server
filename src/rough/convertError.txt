@@ -6,5 +6,10 @@
  * path:" ",
  * message: " ",
  * ]
- * stack
+ * stack (in development phase)
  */
+
+// Algorithm for convert the errors in custom format
+-> every errors will go through the global error handler
+-> from global error handler error property we can catch the error
+-> Then we simply just override the error format as our requirement

@@ -13,4 +13,5 @@ dotenv.config({ path: envPath });
 export default {
   port: process.env.PORT,
   database_url: process.env.DATABASE_URL,
+  env: process.env.ENV,
 };
