@@ -1,5 +1,7 @@
 import { Schema, model } from 'mongoose';
 import ICourse from '../interfaces/course.interface';
+import ApiError from '../errors/apiError';
+import httpStatus from 'http-status';
 
 const courseSchema = new Schema<ICourse>({
   title: {
@@ -50,7 +52,10 @@ courseSchema.pre('save', async function (next) {
     title: this.title,
   });
   if (isCourseExist) {
-    throw new Error(`Course with title ${this.title} already exists!`);
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      `Course with title ${this.title} already exists!`,
+    );
   }
   next();
 });

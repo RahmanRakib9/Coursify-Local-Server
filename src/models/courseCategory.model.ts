@@ -1,5 +1,7 @@
 import { Schema, model } from 'mongoose';
 import ICourseCategory from '../interfaces/courseCategory.interface';
+import ApiError from '../errors/apiError';
+import httpStatus from 'http-status';
 
 const courseCategorySchema = new Schema<ICourseCategory>({
   name: {
@@ -14,7 +16,10 @@ courseCategorySchema.pre('save', async function (next) {
     name: this.name,
   });
   if (isCourseCategoryExist) {
-    throw new Error(`${this.name} Category Course Already Exist!`);
+    throw new ApiError(
+      httpStatus.BAD_REQUEST,
+      `${this.name} Category Course Already Exist!`,
+    );
   }
   next();
 });
