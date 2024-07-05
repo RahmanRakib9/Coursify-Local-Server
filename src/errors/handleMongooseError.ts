@@ -1,8 +1,10 @@
 import mongoose from 'mongoose';
-import { TErrorSources } from './error.interface';
+import { TErrorSources, TGenericResponse } from './error.interface';
 import httpStatus from 'http-status';
 
-const handleMongooseError = (error: mongoose.Error.ValidationError) => {
+const handleMongooseError = (
+  error: mongoose.Error.ValidationError,
+): TGenericResponse => {
   const errorSources: TErrorSources = Object.values(error.errors).map(
     (value: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
       return {
