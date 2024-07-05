@@ -8,6 +8,7 @@ import handleZodError from '../errors/handleZodError';
 import config from '../app/config/config';
 import handleMongooseError from '../errors/handleMongooseError';
 import handleCastError from '../errors/castErrorHandler';
+import ApiError from '../errors/apiError';
 
 const globalErrorHandler = (
   error: any,
@@ -17,7 +18,7 @@ const globalErrorHandler = (
 ) => {
   // default statusCode,message and errorSource
   let statusCode = 500;
-  let message = error.message || 'Error From Global Error Handler';
+  let message = 'Error From Global Error Handler';
   let errorSources: TErrorSources = [
     {
       path: '',
@@ -40,6 +41,23 @@ const globalErrorHandler = (
     statusCode = customErrorFormat.statusCode;
     message = customErrorFormat.message;
     errorSources = customErrorFormat.errorSources;
+  } else if (error instanceof ApiError) {
+    statusCode = error?.statusCode;
+    message = error?.message;
+    errorSources = [
+      {
+        path: '',
+        message: error?.message,
+      },
+    ];
+  } else if (error instanceof Error) {
+    message = error.message;
+    errorSources = [
+      {
+        path: '',
+        message: error?.message,
+      },
+    ];
   }
 
   return res.status(statusCode).json({
