@@ -2,7 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import courseCategoryRoutes from './routes/courseCategory.route';
 import courseRoutes from './routes/course.route';
 import reviewRoutes from './routes/review.route';
-import notFoundHandler from './utils/notFoundHandler';
+import notFoundHandler from './middlewares/notFoundHandler';
 const app: Application = express();
 
 /** Application Regular Middlewares */
