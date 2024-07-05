@@ -7,6 +7,17 @@ const courseCategorySchema = new Schema<ICourseCategory>({
   },
 });
 
+// prevent duplicate course category
+courseCategorySchema.pre('save', async function (next) {
+  const isCourseCategoryExist = await CourseCategory.findOne({
+    name: this.name,
+  });
+  if (isCourseCategoryExist) {
+    throw new Error(`${this.name} Category Course Already Exist!`);
+  }
+  next();
+});
+
 const CourseCategory = model<ICourseCategory>(
   'CourseCategory',
   courseCategorySchema,
