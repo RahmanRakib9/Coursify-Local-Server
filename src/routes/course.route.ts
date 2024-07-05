@@ -3,7 +3,7 @@ import courseControllers from '../controllers/course.controller';
 
 const router = express.Router();
 
-router.post('/create-course',courseControllers.handleCreateCourse);
+router.post('/create-course', courseControllers.handleCreateCourse);
 
 router.get('/', courseControllers.handleGetCourses);
 

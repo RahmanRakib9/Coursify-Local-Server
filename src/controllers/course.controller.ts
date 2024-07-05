@@ -9,7 +9,7 @@ async function handleCreateCourse(
 ) {
   try {
     const coursePayload = req.body;
-     courseValidation.createCourseSchema.parse(coursePayload)
+    courseValidation.createCourseSchema.parse(coursePayload);
     const course = await courseServices.createCourse(coursePayload);
 
     res.status(201).json({

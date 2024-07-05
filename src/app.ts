@@ -19,8 +19,7 @@ app.use('/api/v1/courses', courseRoutes);
 
 app.use('/api/v1/reviews', reviewRoutes);
 
-
 /**Not Found Handler */
-app.use(notFoundHandler)
+app.use(notFoundHandler);
 
 export default app;
