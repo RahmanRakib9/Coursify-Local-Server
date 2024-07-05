@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import courseCategoryServices from '../services/courseCategory.service';
+import courseCategoryValidation from '../schemas/courseCategory.schema';
 
 async function handleCreateCourseCategory(
   req: Request,
@@ -8,6 +9,9 @@ async function handleCreateCourseCategory(
 ) {
   try {
     const courseCategoryPayload = req.body;
+    courseCategoryValidation.createCourseCategorySchema.parse(
+      courseCategoryPayload,
+    );
     const courseCategory = await courseCategoryServices.createCourseCategory(
       courseCategoryPayload,
     );
