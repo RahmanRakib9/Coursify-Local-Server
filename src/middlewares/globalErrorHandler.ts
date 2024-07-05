@@ -7,6 +7,7 @@ import { TErrorSources } from '../errors/error.interface';
 import handleZodError from '../errors/handleZodError';
 import config from '../app/config/config';
 import handleMongooseError from '../errors/handleMongooseError';
+import handleCastError from '../errors/castErrorHandler';
 
 const globalErrorHandler = (
   error: any,
@@ -34,13 +35,18 @@ const globalErrorHandler = (
     statusCode = customErrorFormat.statusCode;
     message = customErrorFormat.message;
     errorSources = customErrorFormat.errorSources;
+  } else if (error?.name === 'CastError') {
+    const customErrorFormat = handleCastError(error);
+    statusCode = customErrorFormat.statusCode;
+    message = customErrorFormat.message;
+    errorSources = customErrorFormat.errorSources;
   }
 
   return res.status(statusCode).json({
     success: false,
     statusCode,
     message,
-    // error,
+    error,
     stack: config.env == 'development' ? error.stack : null,
   });
 };
