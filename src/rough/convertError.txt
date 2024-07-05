@@ -1,0 +1,10 @@
+// Error pattern that will send to the client side
+/**
+ * success
+ * message
+ * errorSources:[
+ * path:" ",
+ * message: " ",
+ * ]
+ * stack
+ */
