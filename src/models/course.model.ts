@@ -35,5 +35,16 @@ const courseSchema = new Schema<ICourse>({
   },
 });
 
+// Prevent duplicate course name
+courseSchema.pre('save', async function (next) {
+  const isCourseExist = await Course.findOne({
+    title: this.title,
+  });
+  if (isCourseExist) {
+    throw new Error(`Course with title ${this.title} already exists!`);
+  }
+  next();
+});
+
 const Course = model<ICourse>('Course', courseSchema);
 export default Course;
