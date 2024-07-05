@@ -4,6 +4,7 @@ import ICourseCategory from '../interfaces/courseCategory.interface';
 const courseCategorySchema = new Schema<ICourseCategory>({
   name: {
     type: String,
+    required: [true, 'Course Category Name is Required!'],
   },
 });
 
