@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import reviewServices from '../services/review.service';
+import reviewValidation from '../schemas/review.schema';
 
 async function handleCreateReview(
   req: Request,
@@ -8,6 +9,7 @@ async function handleCreateReview(
 ) {
   try {
     const reviewPayload = req.body;
+    reviewValidation.createReviewSchema.parse(reviewPayload);
     const review = await reviewServices.createReview(reviewPayload);
     res.status(201).json({
       success: true,
