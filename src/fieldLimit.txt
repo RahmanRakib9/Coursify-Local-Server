@@ -1,0 +1,14 @@
+// expecting fields property from the client side (which fields to exclude)
+
+// _v property wil exclude
+let fields="-_v"
+
+// fields : "name,email";(request from client side)
+// fields: "name email"(convert it by remove comma and add white space)
+
+if(query.fields)
+{
+    fields=(query.fields as string).split(",").join(" ")
+}
+
+const fieldQuery=entity.select(fields)

@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import courseServices from '../services/course.service';
+import courseValidation from '../schemas/course.schema';
 
 async function handleCreateCourse(
   req: Request,
@@ -8,6 +9,7 @@ async function handleCreateCourse(
 ) {
   try {
     const coursePayload = req.body;
+     courseValidation.createCourseSchema.parse(coursePayload)
     const course = await courseServices.createCourse(coursePayload);
 
     res.status(201).json({
