@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import reviewServices from '../services/review.service';
 import reviewValidation from '../schemas/review.schema';
+import httpStatus from 'http-status';
 
 async function handleCreateReview(
   req: Request,
@@ -11,9 +12,9 @@ async function handleCreateReview(
     const reviewPayload = req.body;
     reviewValidation.createReviewSchema.parse(reviewPayload);
     const review = await reviewServices.createReview(reviewPayload);
-    res.status(201).json({
+    res.status(httpStatus.CREATED).json({
       success: true,
-      statusCode: 201,
+      statusCode: httpStatus.CREATED,
       message: 'Review created successfully',
       review,
     });
@@ -30,9 +31,9 @@ async function handleGetReviews(
   try {
     const reviews = await reviewServices.getReviews();
 
-    res.status(200).json({
+    res.status(httpStatus.OK).json({
       success: true,
-      statusCode: 200,
+      statusCode: httpStatus.OK,
       message: 'Reviews retrieved successfully',
       reviews,
     });

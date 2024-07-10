@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import courseServices from '../services/course.service';
 import courseValidation from '../schemas/course.schema';
+import httpStatus from 'http-status';
 
 async function handleCreateCourse(
   req: Request,
@@ -12,9 +13,9 @@ async function handleCreateCourse(
     courseValidation.createCourseSchema.parse(coursePayload);
     const course = await courseServices.createCourse(coursePayload);
 
-    res.status(201).json({
+    res.status(httpStatus.CREATED).json({
       success: true,
-      statusCode: 201,
+      statusCode: httpStatus.CREATED,
       message: 'Course created successfully',
       course,
     });
@@ -32,9 +33,9 @@ async function handleGetCourses(
     const searchTerm = req.query;
     const courses = await courseServices.getCourses(searchTerm);
 
-    res.status(200).json({
+    res.status(httpStatus.OK).json({
       success: true,
-      statusCode: 200,
+      statusCode: httpStatus.OK,
       message: 'Courses retrieved successfully',
       courses,
     });
@@ -52,9 +53,9 @@ async function handleGetCourseWithReview(
     const courseId = req.params.courseId;
     const course = await courseServices.getCourseWithReviews(courseId);
 
-    res.status(200).json({
+    res.status(httpStatus.OK).json({
       success: true,
-      statusCode: 200,
+      statusCode: httpStatus.OK,
       message: 'Course and Reviews retrieved successfully',
       course,
     });

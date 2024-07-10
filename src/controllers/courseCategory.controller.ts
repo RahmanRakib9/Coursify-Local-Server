@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import courseCategoryServices from '../services/courseCategory.service';
 import courseCategoryValidation from '../schemas/courseCategory.schema';
+import httpStatus from 'http-status';
 
 async function handleCreateCourseCategory(
   req: Request,
@@ -16,9 +17,9 @@ async function handleCreateCourseCategory(
       courseCategoryPayload,
     );
 
-    res.status(201).json({
+    res.status(httpStatus.CREATED).json({
       success: true,
-      statusCode: 201,
+      statusCode: httpStatus.CREATED,
       message: 'Category created successfully',
       courseCategory,
     });
@@ -35,9 +36,9 @@ async function handleGetAllCategories(
   try {
     const categories = await courseCategoryServices.getAllCategories();
 
-    res.status(200).json({
+    res.status(httpStatus.OK).json({
       success: true,
-      statusCode: 201,
+      statusCode: httpStatus.OK,
       message: 'Categories retrieved successfully',
       categories,
     });
