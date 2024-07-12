@@ -1,51 +1,18 @@
-# Clean Template Node TypeScript
+# Learnify Local Server
 
-This is a template repository for creating clean and scalable Node.js applications using TypeScript. The template is configured with essential dependencies for building a robust server-side application.
+## Introduction
 
-## Features
+This document provides a comprehensive analysis of the project requirements. Please refer to the Google Docs link provided below for detailed information.
 
-- **Express**: Fast, unopinionated, minimalist web framework for Node.js.
-- **Cors**: Middleware for handling Cross-Origin Resource Sharing.
-- **Dotenv**: Loads environment variables from a .env file for development.
-- **TypeScript**: A superset of JavaScript that adds static types to the language.
-- **Eslint**: A pluggable linting utility for identifying and fixing problems in your TypeScript code.
-- **Prettier**: Opinionated code formatter to maintain consistent code style.
-- **Ts-node-dev**: TypeScript execution environment with fast restarts for development.
+## Access the Requirement Analysis
 
-## Usage
+To view the detailed project requirement analysis, click on the link below:
 
-Follow these steps to use this template and start building your Node.js application:
+[Project Requirement Analysis Document](https://docs.google.com/document/d/19cejsNAUU0yDexwQ1ArW-j_T2SEuy34wmdKJwrxrTrQ/edit?usp=sharing)
 
-### 1. Clone the repository
+## How to Use This Document
 
-```bash
-git clone https://github.com/your-username/clean-template.git
-cd clean-template
-```
-### 2. Install Dependencies
+1. **Review the Document:** Click on the link above to access the Google Docs file. Review the document thoroughly to understand the project 
+2. **Stay Updated:** Make sure to check the document regularly for any updates or changes to the project requirements.
 
-```
-npm install
-```
-### 3. Set Environment Variables
-
-```
-PORT=3000
-```
-
-### 4.  Development
-
-```
-npm run start:dev
-```
-
-### 5.  Linting and Formatting
-
-```
-npm run lint      # Run TypeScript linting
-npm run lint:fix  # Run TypeScript linting and automatically fix issues
-npm run prettier:format  # Format TypeScript code using Prettier
-npm run prettier:fix     # Format and fix TypeScript code using Prettier
-
-```
-
+---
