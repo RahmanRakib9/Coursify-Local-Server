@@ -12,7 +12,7 @@ const courseSchema = new Schema<ICourse>({
     type: String,
     required: [true, 'Instructor is Required!'],
   },
-  categoryId: {
+  category: {
     type: Schema.Types.ObjectId,
     ref: 'CourseCategory',
   },

@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 interface ICourse {
   title: string;
   instructor: string;
-  categoryId: mongoose.Schema.Types.ObjectId;
+  category: mongoose.Schema.Types.ObjectId;
   price: number;
   tags: { name: string; isDeleted: boolean }[]; //array of objects
   startDate: string;
