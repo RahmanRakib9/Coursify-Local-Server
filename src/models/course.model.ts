@@ -2,6 +2,7 @@ import { Schema, model } from 'mongoose';
 import ICourse from '../interfaces/course.interface';
 import ApiError from '../errors/apiError';
 import httpStatus from 'http-status';
+import slugify from 'slugify';
 
 const courseSchema = new Schema<ICourse>({
   title: {
@@ -44,6 +45,7 @@ const courseSchema = new Schema<ICourse>({
     type: { level: String, description: String },
     required: [true, 'Course Details are Required!'],
   },
+  slug: { type: String }
 });
 
 // Prevent duplicate course name
@@ -59,6 +61,14 @@ courseSchema.pre('save', async function (next) {
   }
   next();
 });
+
+// Create slug based on course name and instructor
+courseSchema.pre("save", async function (next) {
+  const tagName = this.tags[0].name;
+  this.slug = slugify(`${tagName}-${this.instructor}`, { lower: true })
+
+  next();
+})
 
 const Course = model<ICourse>('Course', courseSchema);
 export default Course;
