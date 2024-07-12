@@ -45,7 +45,7 @@ const courseSchema = new Schema<ICourse>({
     type: { level: String, description: String },
     required: [true, 'Course Details are Required!'],
   },
-  slug: { type: String }
+  slug: { type: String },
 });
 
 // Prevent duplicate course name
@@ -63,12 +63,12 @@ courseSchema.pre('save', async function (next) {
 });
 
 // Create slug based on course name and instructor
-courseSchema.pre("save", async function (next) {
+courseSchema.pre('save', async function (next) {
   const tagName = this.tags[0].name;
-  this.slug = slugify(`${tagName}-${this.instructor}`, { lower: true })
+  this.slug = slugify(`${tagName}-${this.instructor}`, { lower: true });
 
   next();
-})
+});
 
 const Course = model<ICourse>('Course', courseSchema);
 export default Course;
