@@ -3,10 +3,7 @@ import courseCategoryControllers from '../controllers/courseCategory.controller'
 
 const router = express.Router();
 
-router.post(
-  '/create-category',
-  courseCategoryControllers.handleCreateCourseCategory,
-);
+router.post('/', courseCategoryControllers.handleCreateCourseCategory);
 
 router.get('/', courseCategoryControllers.handleGetAllCategories);
 

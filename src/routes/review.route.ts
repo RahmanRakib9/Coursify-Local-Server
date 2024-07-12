@@ -3,7 +3,7 @@ import reviewControllers from '../controllers/review.controller';
 
 const router = express.Router();
 
-router.post('/create-review', reviewControllers.handleCreateReview);
+router.post('/', reviewControllers.handleCreateReview);
 
 router.get('/', reviewControllers.handleGetReviews);
 
