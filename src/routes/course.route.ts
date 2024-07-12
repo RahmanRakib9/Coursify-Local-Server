@@ -7,7 +7,7 @@ router.post('/', courseControllers.handleCreateCourse);
 
 router.get('/', courseControllers.handleGetCourses);
 
-router.get('/:courseId', courseControllers.handleGetCourseWithReview);
+router.get('/:slug', courseControllers.handleGetCourseBySlug);
 
 const courseRoutes = router;
 export default courseRoutes;

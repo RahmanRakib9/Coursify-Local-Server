@@ -44,19 +44,19 @@ async function handleGetCourses(
   }
 }
 
-async function handleGetCourseWithReview(
+async function handleGetCourseBySlug(
   req: Request,
   res: Response,
   next: NextFunction,
 ) {
   try {
-    const courseId = req.params.courseId;
-    const course = await courseServices.getCourseWithReviews(courseId);
+    const { slug } = req.params;
+    const course = await courseServices.getCourseBySlug(slug);
 
     res.status(httpStatus.OK).json({
       success: true,
       statusCode: httpStatus.OK,
-      message: 'Course and Reviews retrieved successfully',
+      message: `${slug} course is retrieved successfully`,
       course,
     });
   } catch (error) {
@@ -67,6 +67,6 @@ async function handleGetCourseWithReview(
 const courseControllers = {
   handleCreateCourse,
   handleGetCourses,
-  handleGetCourseWithReview,
+  handleGetCourseBySlug,
 };
 export default courseControllers;

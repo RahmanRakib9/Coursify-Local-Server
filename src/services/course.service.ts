@@ -43,14 +43,14 @@ const getCourses = async (query: Record<string, unknown>) => {
   return courses;
 };
 
-const getCourseWithReviews = async (courseId: string) => {
-  const course = await Course.findById(courseId);
+const getCourseBySlug = async (slug: string) => {
+  const course = await Course.findOne({ slug });
   return course;
 };
 
 const courseServices = {
   createCourse,
-  getCourseWithReviews,
   getCourses,
+  getCourseBySlug,
 };
 export default courseServices;
