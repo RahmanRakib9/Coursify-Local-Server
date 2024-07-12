@@ -11,5 +11,7 @@ router.get('/:slug', courseControllers.handleGetCourseBySlug);
 
 router.post('/:slug/reviews', courseControllers.handleCreateReview);
 
+router.get('/:slug/reviews', courseControllers.handleGetCourseReviews);
+
 const courseRoutes = router;
 export default courseRoutes;

@@ -86,10 +86,31 @@ async function handleCreateReview(
   }
 }
 
+async function handleGetCourseReviews(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const { slug } = req.params;
+    const reviews = await courseServices.getAllCourseReviews(slug);
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Reviews Retrieved Successfully',
+      reviews,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 const courseControllers = {
   handleCreateCourse,
   handleGetCourses,
   handleGetCourseBySlug,
   handleCreateReview,
+  handleGetCourseReviews,
 };
 export default courseControllers;
