@@ -15,6 +15,7 @@ interface ICourse {
     level: string;
     description: string;
   };
+  totalRating: number;
   slug: string;
 }
 /**Another field is durationInWeeks:number,

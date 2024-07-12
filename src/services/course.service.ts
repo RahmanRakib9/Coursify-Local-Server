@@ -1,5 +1,7 @@
 import ICourse from '../interfaces/course.interface';
+import IReview from '../interfaces/review.interface';
 import Course from '../models/course.model';
+import Review from '../models/review.model';
 
 const createCourse = async (coursePayload: ICourse) => {
   const course = await Course.create(coursePayload);
@@ -48,9 +50,52 @@ const getCourseBySlug = async (slug: string) => {
   return course;
 };
 
+/** Review */
+const createReview = async (slug: string, reviewPayload: Partial<IReview>) => {
+  const session = await Course.startSession();
+
+  const course = await Course.findOne({ slug });
+
+  if (!course) {
+    throw new Error(`${slug} course is not found!`);
+  }
+
+  try {
+    session.startTransaction();
+
+    const review = await Review.create(
+      [
+        {
+          course: course._id,
+          ...reviewPayload,
+        },
+      ],
+      { session },
+    );
+
+    const reviewCount = await Review.countDocuments({
+      course: course._id,
+    }).session(session);
+
+    await Course.updateOne(
+      { slug },
+      { totalRating: reviewCount },
+      { new: true },
+    ).session(session);
+
+    await session.commitTransaction();
+
+    return review[0];
+  } catch (error) {
+    await session.abortTransaction();
+    await session.endSession();
+  }
+};
+
 const courseServices = {
   createCourse,
   getCourses,
   getCourseBySlug,
+  createReview,
 };
 export default courseServices;

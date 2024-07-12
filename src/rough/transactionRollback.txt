@@ -1,0 +1,37 @@
+// Steps for Transaction & Rollback
+
+-> Start The Session
+-> Start The Transaction
+    ->if transaction is successful then commit the transaction
+    -> otherwise abort the transaction 
+-> End the Session
+
+
+// Demo Code Snippet
+const session=await entity.startSession()
+
+// to catch an error use try-catch block
+
+try
+{
+    session.startTransaction()
+
+    // start database operation
+    // Transaction-01
+    // Transaction-02
+    // Transaction-n
+
+
+    // if everything is successful then,
+
+    await session.commitTransaction();
+    await session.endSession();
+
+
+}catch(error)
+{
+    // otherwise if an error occurs (abort and end the session)
+     await session.abortTransaction()
+     await session.endSession();
+
+}

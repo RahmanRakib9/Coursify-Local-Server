@@ -45,6 +45,10 @@ const courseSchema = new Schema<ICourse>({
     type: { level: String, description: String },
     required: [true, 'Course Details are Required!'],
   },
+  totalRating: {
+    type: Number,
+    default: 0,
+  },
   slug: { type: String },
 });
 

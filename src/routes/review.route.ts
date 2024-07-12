@@ -3,8 +3,6 @@ import reviewControllers from '../controllers/review.controller';
 
 const router = express.Router();
 
-router.post('/', reviewControllers.handleCreateReview);
-
 router.get('/', reviewControllers.handleGetReviews);
 
 const reviewRoutes = router;

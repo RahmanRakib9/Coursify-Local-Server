@@ -9,5 +9,7 @@ router.get('/', courseControllers.handleGetCourses);
 
 router.get('/:slug', courseControllers.handleGetCourseBySlug);
 
+router.post('/:slug/reviews', courseControllers.handleCreateReview);
+
 const courseRoutes = router;
 export default courseRoutes;

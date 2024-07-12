@@ -1,0 +1,12 @@
+Steps for create a review for a specific course  (Using Transaction & Rollback)
+
+-> find a course by unique identifier (slug)
+-> if the course exist
+    -> then create a review with the course id and review payload
+    -> otherwise throw an error
+-> After create a review get the total review count (review) of a specific course by (movie._id)
+-> Then update the course entity (totalRatings:totalReview Count)
+-> Return the Review
+
+
+*** Total Reviews for a specific course would be the total ratings of that course ***

@@ -64,9 +64,32 @@ async function handleGetCourseBySlug(
   }
 }
 
+/**Review */
+async function handleCreateReview(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const { slug } = req.params;
+    const reviewPayload = req.body;
+    const review = await courseServices.createReview(slug, reviewPayload);
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Review Created Successfully',
+      review,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 const courseControllers = {
   handleCreateCourse,
   handleGetCourses,
   handleGetCourseBySlug,
+  handleCreateReview,
 };
 export default courseControllers;
