@@ -98,7 +98,7 @@ const getAllCourseReviews = async (slug: string) => {
   const course = await Course.findOne({ slug });
 
   if (!course) {
-    throw new Error(`${slug} course is not found!`);
+    throw new ApiError(httpStatus.BAD_REQUEST, `${slug} course is not found!`);
   }
 
   /** Populate the "course" and "category" field:
