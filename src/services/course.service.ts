@@ -40,7 +40,7 @@ const getCourses = async (query: Record<string, unknown>) => {
   });
 
   const paginateQuery = searchedCourses.skip(skip);
-  const limitQuery = await paginateQuery.limit(limit);
+  const limitQuery = await paginateQuery.limit(limit).populate("category");
 
   const courses = limitQuery;
 
@@ -48,7 +48,7 @@ const getCourses = async (query: Record<string, unknown>) => {
 };
 
 const getCourseBySlug = async (slug: string) => {
-  const course = await Course.findOne({ slug });
+  const course = await Course.findOne({ slug }).populate("category");
   return course;
 };
 
