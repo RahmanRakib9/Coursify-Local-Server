@@ -40,7 +40,7 @@ const getCourses = async (query: Record<string, unknown>) => {
   });
 
   const paginateQuery = searchedCourses.skip(skip);
-  const limitQuery = await paginateQuery.limit(limit).populate("category");
+  const limitQuery = await paginateQuery.limit(limit).populate('category');
 
   const courses = limitQuery;
 
@@ -48,7 +48,7 @@ const getCourses = async (query: Record<string, unknown>) => {
 };
 
 const getCourseBySlug = async (slug: string) => {
-  const course = await Course.findOne({ slug }).populate("category");
+  const course = await Course.findOne({ slug }).populate('category');
   return course;
 };
 
@@ -101,7 +101,18 @@ const getAllCourseReviews = async (slug: string) => {
     throw new Error(`${slug} course is not found!`);
   }
 
-  const reviews = await Review.find({ course: course._id });
+  /** Populate the "course" and "category" field:
+   * "course" field can directly populate because this field is exist on review
+   * but "category" field cannot populate directly because this field does not exist on review
+   * "category" field is exist under the course entity
+   */
+  const reviews = await Review.find({ course: course._id }).populate({
+    path: 'course',
+    populate: {
+      path: 'category',
+      model: 'CourseCategory',
+    },
+  });
 
   return reviews;
 };
