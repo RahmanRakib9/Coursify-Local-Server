@@ -21,8 +21,32 @@ const createCourseSchema = z.object({
   }),
 });
 
+const updateCourseSchema = z.object({
+  title: z.string().optional(),
+  instructor: z.string().optional(),
+  categoryId: z.string().optional(),
+  price: z.number().positive({ message: 'Price must be positive' }).optional(),
+  tags: z
+    .array(
+      z.object({
+        name: z.string().trim(),
+        isDeleted: z.boolean(),
+      }),
+    )
+    .optional(),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  language: z.string().trim().optional(),
+  provider: z.string().trim().optional(),
+  details: z.object({
+    level: z.string().trim().optional(),
+    description: z.string().trim().optional(),
+  }),
+});
+
 const courseValidation = {
   createCourseSchema,
+  updateCourseSchema,
 };
 
 export default courseValidation;
