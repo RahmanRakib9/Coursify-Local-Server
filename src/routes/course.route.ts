@@ -3,6 +3,8 @@ import courseControllers from '../controllers/course.controller';
 
 const router = express.Router();
 
+router.get('/best', courseControllers.handleGetBestCourseByTotalRating);
+
 router.post('/', courseControllers.handleCreateCourse);
 
 router.get('/', courseControllers.handleGetCourses);

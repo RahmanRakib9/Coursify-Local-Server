@@ -64,6 +64,26 @@ async function handleGetCourseBySlug(
   }
 }
 
+async function handleGetBestCourseByTotalRating(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const bestCourseByTotalRating =
+      await courseServices.getBestCourseByTotalRating();
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Retrieved Best course based on total rating!',
+      bestCourseByTotalRating: bestCourseByTotalRating,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 /**Review */
 async function handleCreateReview(
   req: Request,
@@ -112,5 +132,6 @@ const courseControllers = {
   handleGetCourseBySlug,
   handleCreateReview,
   handleGetCourseReviews,
+  handleGetBestCourseByTotalRating,
 };
 export default courseControllers;

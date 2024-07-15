@@ -52,6 +52,15 @@ const getCourseBySlug = async (slug: string) => {
   return course;
 };
 
+const getBestCourseByTotalRating = async () => {
+  const bestCourseByTotalRating = await Course.aggregate([
+    { $sort: { totalRating: -1 } },
+    { $limit: 1 },
+  ]).exec();
+
+  return bestCourseByTotalRating[0];
+};
+
 /** Review */
 const createReview = async (slug: string, reviewPayload: Partial<IReview>) => {
   const session = await Course.startSession();
@@ -123,5 +132,6 @@ const courseServices = {
   getCourseBySlug,
   createReview,
   getAllCourseReviews,
+  getBestCourseByTotalRating,
 };
 export default courseServices;
