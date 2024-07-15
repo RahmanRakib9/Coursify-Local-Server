@@ -10,7 +10,7 @@ const app: Application = express();
 app.use(express.json());
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello From Node Typescript Clean Template Application!');
+  res.send('Hello From Learnify-Local-Server');
 });
 
 /** Application Routes */
