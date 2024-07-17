@@ -10,6 +10,10 @@ To view the detailed project requirement analysis, click on the link below:
 
 [Project Requirement Analysis Document](https://docs.google.com/document/d/19cejsNAUU0yDexwQ1ArW-j_T2SEuy34wmdKJwrxrTrQ/edit?usp=sharing)
 
+## You can also check out the live version of the project on Vercel:
+
+[Live Project on Vercel](https://learnify-local-server.vercel.app/)
+
 ## How to Use This Document
 
 1. **Review the Document:** Click on the link above to access the Google Docs file. Review the document thoroughly to understand the project 
