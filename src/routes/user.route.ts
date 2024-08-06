@@ -7,5 +7,7 @@ router.post('/', userControllers.handleCreateUser);
 
 router.get('/', userControllers.handleGetUsers);
 
+router.get('/:userId', userControllers.handleGetUser);
+
 const userRoutes = router;
 export default userRoutes;

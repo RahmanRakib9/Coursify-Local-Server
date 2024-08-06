@@ -40,8 +40,24 @@ async function handleGetUsers(req: Request, res: Response, next: NextFunction) {
   }
 }
 
+async function handleGetUser(req: Request, res: Response, next: NextFunction) {
+  try {
+    const user = await userServices.getUser(req.params.userId);
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'User Retrieved successfully',
+      user,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 const userControllers = {
   handleCreateUser,
   handleGetUsers,
+  handleGetUser,
 };
 export default userControllers;
