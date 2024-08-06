@@ -21,10 +21,20 @@ const deleteUser = async (userId: string) => {
   return null;
 };
 
+const updateUser = async (userId: string, userPayload: IUser) => {
+  const updatedUser = await User.updateOne(
+    { userId },
+    { userPayload },
+    { new: true },
+  );
+  return updatedUser;
+};
+
 const userServices = {
   createUser,
   getUsers,
   getUser,
   deleteUser,
+  updateUser,
 };
 export default userServices;

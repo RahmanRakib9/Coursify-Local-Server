@@ -69,10 +69,32 @@ async function handleDeleteUser(
   }
 }
 
+async function handleUpdateUser(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const userId = req.params.userId;
+    const userPayload = req.body;
+    const updatedUser = await userServices.updateUser(userId, userPayload);
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'User Updated successfully',
+      updatedUser,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 const userControllers = {
   handleCreateUser,
   handleGetUsers,
   handleGetUser,
   handleDeleteUser,
+  handleUpdateUser,
 };
 export default userControllers;
