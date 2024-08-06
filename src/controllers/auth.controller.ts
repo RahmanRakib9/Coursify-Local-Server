@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import userValidation from '../schemas/user.schema';
 import authServices from '../services/auth.service';
 import httpStatus from 'http-status';
+import config from '../app/config/config';
 
 async function handleRegisterUser(
   req: Request,
@@ -25,7 +26,35 @@ async function handleRegisterUser(
   }
 }
 
+async function handleLoginUser(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const userLoginPayload = req.body;
+
+    const { accessToken, refreshToken } =
+      await authServices.loginUser(userLoginPayload);
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: config.env == 'production',
+    });
+
+    res.status(httpStatus.CREATED).json({
+      success: true,
+      statusCode: httpStatus.CREATED,
+      message: 'User Logged-in successfully',
+      accessToken,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 const authControllers = {
   handleRegisterUser,
+  handleLoginUser,
 };
 export default authControllers;
