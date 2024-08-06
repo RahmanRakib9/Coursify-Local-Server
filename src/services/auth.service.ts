@@ -6,6 +6,7 @@ import { User_Role, User_Status } from '../constants/user.constant';
 import ILoginUser from '../interfaces/auth.interface';
 import jwt from 'jsonwebtoken';
 import config from '../app/config/config';
+import { comparePasswordFields } from '../utils/comparePassword';
 
 const registerUser = async (userPayload: IUser) => {
   const user = await User.findOne({ email: userPayload.email });
@@ -34,7 +35,14 @@ const loginUser = async (userLoginPayload: ILoginUser) => {
     throw new ApiError(httpStatus.FORBIDDEN, 'User is Blocked!');
   }
 
-  //TODO: compare the password
+  const isPasswordMatched = await comparePasswordFields(
+    userLoginPayload.password,
+    user.password,
+  );
+
+  if (!isPasswordMatched) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect password!');
+  }
 
   const jwtPayload = {
     email: user.email,
