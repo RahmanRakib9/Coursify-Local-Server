@@ -9,5 +9,7 @@ router.get('/', userControllers.handleGetUsers);
 
 router.get('/:userId', userControllers.handleGetUser);
 
+router.delete('/:userId', userControllers.handleDeleteUser);
+
 const userRoutes = router;
 export default userRoutes;

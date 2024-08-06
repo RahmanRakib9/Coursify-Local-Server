@@ -16,9 +16,15 @@ const getUser = async (userId: string) => {
   return user;
 };
 
+const deleteUser = async (userId: string) => {
+  await User.deleteOne({ userId });
+  return null;
+};
+
 const userServices = {
   createUser,
   getUsers,
   getUser,
+  deleteUser,
 };
 export default userServices;
