@@ -25,7 +25,23 @@ async function handleCreateUser(
   }
 }
 
+async function handleGetUsers(req: Request, res: Response, next: NextFunction) {
+  try {
+    const users = await userServices.getUsers();
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Users Retrieved successfully',
+      users,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 const userControllers = {
   handleCreateUser,
+  handleGetUsers,
 };
 export default userControllers;
