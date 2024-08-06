@@ -5,6 +5,7 @@ import reviewRoutes from './routes/review.route';
 import notFoundHandler from './middlewares/notFoundHandler';
 import globalErrorHandler from './middlewares/globalErrorHandler';
 import userRoutes from './routes/user.route';
+import authRoutes from './routes/auth.route';
 const app: Application = express();
 
 /** Application Regular Middlewares */
@@ -22,6 +23,8 @@ app.use('/api/v1/courses', courseRoutes);
 app.use('/api/v1/reviews', reviewRoutes);
 
 app.use('/api/v1/users', userRoutes);
+
+app.use('/api/v1/auth', authRoutes);
 
 /**Global Error Handler */
 app.use(globalErrorHandler);

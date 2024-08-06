@@ -1,11 +1,6 @@
 import IUser from '../interfaces/user.interface';
 import { User } from '../models/user.model';
 
-const createUser = async (userPayload: IUser) => {
-  const user = await User.create(userPayload);
-  return user;
-};
-
 const getUsers = async () => {
   const users = await User.find();
   return users;
@@ -31,7 +26,6 @@ const updateUser = async (userId: string, userPayload: IUser) => {
 };
 
 const userServices = {
-  createUser,
   getUsers,
   getUser,
   deleteUser,

@@ -6,8 +6,8 @@ const createUserSchema = z.object({
   email: z.string().email(),
   password: z.string(),
   passwordChangedAT: z.number().optional(),
-  role: z.nativeEnum(User_Role),
-  status: z.nativeEnum(User_Status),
+  role: z.nativeEnum(User_Role).optional(),
+  status: z.nativeEnum(User_Status).optional(),
 });
 
 const userValidation = {
