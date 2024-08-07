@@ -3,6 +3,7 @@ import userValidation from '../schemas/user.schema';
 import authServices from '../services/auth.service';
 import httpStatus from 'http-status';
 import config from '../app/config/config';
+import authValidation from '../schemas/auth.schema';
 
 async function handleRegisterUser(
   req: Request,
@@ -33,6 +34,8 @@ async function handleLoginUser(
 ) {
   try {
     const userLoginPayload = req.body;
+
+    authValidation.userLoginSchema.parse(userLoginPayload);
 
     const { accessToken, refreshToken } =
       await authServices.loginUser(userLoginPayload);
