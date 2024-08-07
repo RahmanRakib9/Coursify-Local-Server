@@ -11,8 +11,12 @@ const createCourseSchema = z.object({
       isDeleted: z.boolean(),
     }),
   ),
-  startDate: z.string(),
-  endDate: z.string(),
+  startDate: z.string().refine((date) => !isNaN(Date.parse(date)), {
+    message: 'Invalid date format',
+  }),
+  endDate: z.string().refine((date) => !isNaN(Date.parse(date)), {
+    message: 'Invalid date format',
+  }),
   language: z.string().trim().min(1, 'Language is required'),
   provider: z.string().trim().min(1, 'Provider name is required'),
   details: z.object({

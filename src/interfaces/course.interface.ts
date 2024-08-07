@@ -6,8 +6,8 @@ interface ICourse {
   category: mongoose.Schema.Types.ObjectId;
   price: number;
   tags: { name: string; isDeleted: boolean }[]; //array of objects
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
   language: string;
   provider: string;
   //an object field
