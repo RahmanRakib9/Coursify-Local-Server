@@ -4,7 +4,7 @@ import IUser from '../interfaces/user.interface';
 import { User } from '../models/user.model';
 import { User_Role, User_Status } from '../constants/user.constant';
 import ILoginUser from '../interfaces/auth.interface';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../app/config/config';
 import { comparePasswordFields } from '../utils/comparePassword';
 
@@ -63,8 +63,42 @@ const loginUser = async (userLoginPayload: ILoginUser) => {
   return { accessToken, refreshToken };
 };
 
+// if refresh token is expired then this refresh token route will call from the client side
+const generateNewRefreshToken = async (token: string) => {
+  const verifiedToken = jwt.verify(
+    token,
+    config.refresh_token_secret_key as string,
+  ) as JwtPayload;
+
+  const { email } = verifiedToken;
+  const user = await User.findOne(email);
+
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User Not Found!');
+  }
+
+  if (user.status === User_Status.BLOCKED) {
+    throw new ApiError(httpStatus.FORBIDDEN, 'User is Blocked!');
+  }
+
+  //create jwt payload for regenerating refresh token
+  const jwtPayload = {
+    email: user.email,
+    role: user.role,
+  };
+
+  const refreshToken = jwt.sign(
+    jwtPayload,
+    config.refresh_token_secret_key as string,
+    { expiresIn: '10d' },
+  );
+
+  return { refreshToken };
+};
+
 const authServices = {
   registerUser,
   loginUser,
+  generateNewRefreshToken,
 };
 export default authServices;

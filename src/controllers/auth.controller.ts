@@ -56,8 +56,31 @@ async function handleLoginUser(
   }
 }
 
+// if refresh token is expired then this refresh token route will call from the client side
+async function handleGenerateNewRefreshToken(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const { refreshToken } = req.cookies;
+    const newRefreshToken =
+      await authServices.generateNewRefreshToken(refreshToken);
+
+    res.status(httpStatus.CREATED).json({
+      success: true,
+      statusCode: httpStatus.CREATED,
+      message: 'New Refresh Token Generated Successfully!',
+      newRefreshToken,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 const authControllers = {
   handleRegisterUser,
   handleLoginUser,
+  handleGenerateNewRefreshToken,
 };
 export default authControllers;

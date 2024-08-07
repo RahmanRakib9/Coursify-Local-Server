@@ -7,5 +7,7 @@ router.post('/register', authControllers.handleRegisterUser);
 
 router.post('/login', authControllers.handleLoginUser);
 
+router.post('/refresh-token', authControllers.handleGenerateNewRefreshToken);
+
 const authRoutes = router;
 export default authRoutes;
