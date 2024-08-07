@@ -7,9 +7,13 @@ import globalErrorHandler from './middlewares/globalErrorHandler';
 import userRoutes from './routes/user.route';
 import authRoutes from './routes/auth.route';
 const app: Application = express();
+import cookieParser = require('cookie-parser');
+import cors from 'cors';
 
 /** Application Regular Middlewares */
 app.use(express.json());
+app.use(cors());
+app.use(cookieParser());
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello From Coursify-Local-Server');
