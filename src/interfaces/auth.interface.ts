@@ -1,5 +1,10 @@
-interface ILoginUser {
+export interface ILoginUser {
   email: string;
   password: string;
 }
-export default ILoginUser;
+
+export interface IChangePassword {
+  email: string;
+  oldPassword: string;
+  newPassword: string;
+}

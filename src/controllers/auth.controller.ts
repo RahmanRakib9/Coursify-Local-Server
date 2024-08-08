@@ -56,6 +56,28 @@ async function handleLoginUser(
   }
 }
 
+async function handleChangePassword(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const changePasswordPayload = req.body;
+
+    authValidation.changePasswordSchema.parse(changePasswordPayload);
+
+    await authServices.changePassword(changePasswordPayload);
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Password Changed successfully',
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 // if refresh token is expired then this refresh token route will call from the client side
 async function handleGenerateNewRefreshToken(
   req: Request,
@@ -81,6 +103,7 @@ async function handleGenerateNewRefreshToken(
 const authControllers = {
   handleRegisterUser,
   handleLoginUser,
+  handleChangePassword,
   handleGenerateNewRefreshToken,
 };
 export default authControllers;
