@@ -17,4 +17,9 @@ export default {
   access_token_secret_key: process.env.ACCESS_TOKEN_SECRET_KEY,
   refresh_token_secret_key: process.env.REFRESH_TOKEN_SECRET_KEY,
   bcrypt_salt_round: process.env.BCRYPT_SALT_ROUND,
+  forget_password_secret_key: process.env.FORGET_PASSWORD_SECRET_KEY,
+  reset_pass_ui_link: process.env.RESET_PASS_UI_LINK,
+  reset_pass_user: process.env.RESET_PASS_USER,
+  reset_pass_user_pass: process.env.RESET_PASS_USER_PASS,
+  reset_email_port: process.env.RESET_EMAIL_PORT,
 };

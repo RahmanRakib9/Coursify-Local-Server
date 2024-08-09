@@ -13,8 +13,23 @@ const changePasswordSchema = z.object({
   newPassword: z.string({ required_error: 'New Password is Required!' }),
 });
 
+const forgetPasswordSchema = z.object({
+  email: z
+    .string({ required_error: 'Email is Required!' })
+    .email({ message: 'Invalid Email Address!' }),
+});
+
+const resetPasswordSchema = z.object({
+  email: z
+    .string({ required_error: 'Email is Required!' })
+    .email({ message: 'Invalid Email Address!' }),
+  newPassword: z.string({ required_error: 'New Password is Required!' }),
+});
+
 const authValidation = {
   userLoginSchema,
   changePasswordSchema,
+  forgetPasswordSchema,
+  resetPasswordSchema,
 };
 export default authValidation;

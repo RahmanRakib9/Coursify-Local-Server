@@ -78,7 +78,52 @@ async function handleChangePassword(
   }
 }
 
-// if refresh token is expired then this refresh token route will call from the client side
+async function handleForgetPassword(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const email = req.body;
+
+    authValidation.forgetPasswordSchema.parse(email);
+
+    await authServices.forgetPassword(email);
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Forget Password Link Generated successfully!',
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function handleResetPassword(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const resetPasswordPayload = req.body;
+    const token = req.headers.authorization;
+
+    authValidation.resetPasswordSchema.parse(resetPasswordPayload);
+
+    await authServices.resetPassword(resetPasswordPayload, token as string);
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Password Reset successfully!',
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+// if existing refresh token is expired then this refresh token route will call from the client side
 async function handleGenerateNewRefreshToken(
   req: Request,
   res: Response,
@@ -104,6 +149,8 @@ const authControllers = {
   handleRegisterUser,
   handleLoginUser,
   handleChangePassword,
+  handleForgetPassword,
+  handleResetPassword,
   handleGenerateNewRefreshToken,
 };
 export default authControllers;

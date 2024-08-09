@@ -6,8 +6,14 @@ import { User_Role, User_Status } from '../constants/user.constant';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../app/config/config';
 import { comparePasswordFields } from '../utils/comparePassword';
-import { IChangePassword, ILoginUser } from '../interfaces/auth.interface';
+import {
+  IChangePassword,
+  IForgetPassword,
+  ILoginUser,
+  IResetPassword,
+} from '../interfaces/auth.interface';
 import bcrypt from 'bcrypt';
+import { sendResetEmail } from '../utils/sendResetEmail';
 
 const registerUser = async (userPayload: IUser) => {
   const user = await User.findOne({ email: userPayload.email });
@@ -94,8 +100,76 @@ const changePassword = async (changePasswordPayload: IChangePassword) => {
     { $set: { password: hashedPassword } },
   );
 };
+const forgetPassword = async (forgetPasswordPayload: IForgetPassword) => {
+  const user = await User.findOne({ email: forgetPasswordPayload.email });
 
-// if refresh token is expired then this refresh token route will call from the client side
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User Not Found!');
+  }
+
+  if (user.status === User_Status.BLOCKED) {
+    throw new ApiError(httpStatus.FORBIDDEN, 'User is Blocked!');
+  }
+
+  const jwtPayload = {
+    email: user.email,
+    role: user.role,
+  } as JwtPayload;
+  const forgetPasswordToken = jwt.sign(
+    jwtPayload,
+    config.forget_password_secret_key as string,
+    { expiresIn: '10m' },
+  );
+
+  const resetPasswordLink = `${config.reset_pass_ui_link}?email=${user.email}&token=${forgetPasswordToken}`;
+  /** frontEnd will separate the user email and token from this resetPasswordLink and
+   * make a post request at /reset-password with (extracted email,token) and additionally newPassword
+   * { email,newPassword}-> req.body
+   * authorization token-> authorization headers
+   *
+   */
+  // console.log(resetPasswordLink);
+
+  sendResetEmail(user.email, resetPasswordLink);
+};
+
+const resetPassword = async (
+  resetPasswordPayload: IResetPassword,
+  token: string,
+) => {
+  const user = await User.findOne({ email: resetPasswordPayload.email });
+
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User Not Found!');
+  }
+
+  if (user.status === User_Status.BLOCKED) {
+    throw new ApiError(httpStatus.FORBIDDEN, 'User is Blocked!');
+  }
+
+  // compare the token encrypted users email and users payload given email
+  const verifiedToken = jwt.verify(
+    token,
+    config.forget_password_secret_key as string,
+  );
+  const { email } = verifiedToken as JwtPayload;
+
+  if (resetPasswordPayload.email != email) {
+    throw new ApiError(httpStatus.UNAUTHORIZED, 'User is Not authorized!');
+  }
+
+  const hashedPassword = await bcrypt.hash(
+    resetPasswordPayload.newPassword,
+    Number(config.bcrypt_salt_round),
+  );
+
+  await User.updateOne(
+    { email: user.email },
+    { $set: { password: hashedPassword } },
+  );
+};
+
+// if existing refresh token is expired then this refresh token route will call from the client side
 const generateNewRefreshToken = async (token: string) => {
   const verifiedToken = jwt.verify(
     token,
@@ -132,6 +206,8 @@ const authServices = {
   registerUser,
   loginUser,
   changePassword,
+  forgetPassword,
+  resetPassword,
   generateNewRefreshToken,
 };
 export default authServices;

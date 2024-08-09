@@ -9,6 +9,11 @@ router.post('/login', authControllers.handleLoginUser);
 
 router.patch('/change-password', authControllers.handleChangePassword);
 
+router.post('/forget-password', authControllers.handleForgetPassword);
+
+router.post('/reset-password', authControllers.handleForgetPassword);
+
+// if existing refresh token is expired then this refresh token route will call from the client side
 router.post('/refresh-token', authControllers.handleGenerateNewRefreshToken);
 
 const authRoutes = router;
