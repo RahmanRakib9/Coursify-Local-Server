@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.get('/', userControllers.handleGetUsers);
 
+router.get('/me', userControllers.handleGetMe);
+
 router.get('/:userId', userControllers.handleGetUser);
 
 router.delete('/:userId', userControllers.handleDeleteUser);

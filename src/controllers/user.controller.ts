@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import userServices from '../services/user.service';
+import ApiError from '../errors/apiError';
 
 async function handleGetUsers(req: Request, res: Response, next: NextFunction) {
   try {
@@ -11,6 +12,30 @@ async function handleGetUsers(req: Request, res: Response, next: NextFunction) {
       statusCode: httpStatus.OK,
       message: 'Users Retrieved successfully',
       users,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
+async function handleGetMe(req: Request, res: Response, next: NextFunction) {
+  try {
+    const token = req.headers.authorization;
+
+    if (!token) {
+      throw new ApiError(
+        httpStatus.UNAUTHORIZED,
+        'You are Unauthorized to access this route!',
+      );
+    }
+
+    const user = await userServices.getMe(token as string);
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'User Retrieved successfully',
+      user,
     });
   } catch (error) {
     next(error);
@@ -69,6 +94,7 @@ async function handleUpdateUser(
 
 const userControllers = {
   handleGetUsers,
+  handleGetMe,
   handleGetUser,
   handleDeleteUser,
   handleUpdateUser,
