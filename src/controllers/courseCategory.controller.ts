@@ -47,8 +47,29 @@ async function handleGetAllCategories(
   }
 }
 
+async function handleGetCategory(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const name = req.params.name;
+    const category = await courseCategoryServices.getCategory(name);
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Category retrieved successfully',
+      category,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 const courseCategoryControllers = {
   handleCreateCourseCategory,
   handleGetAllCategories,
+  handleGetCategory,
 };
 export default courseCategoryControllers;

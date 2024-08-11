@@ -13,5 +13,7 @@ router.post(
 
 router.get('/', courseCategoryControllers.handleGetAllCategories);
 
+router.get('/:name', courseCategoryControllers.handleGetCategory);
+
 const courseCategoryRoutes = router;
 export default courseCategoryRoutes;
