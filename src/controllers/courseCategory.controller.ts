@@ -34,7 +34,7 @@ async function handleGetAllCategories(
   next: NextFunction,
 ) {
   try {
-    const categories = await courseCategoryServices.getAllCategories();
+    const categories = await courseCategoryServices.getAllCourseCategories();
 
     res.status(httpStatus.OK).json({
       success: true,
@@ -54,7 +54,7 @@ async function handleGetCategory(
 ) {
   try {
     const name = req.params.name;
-    const category = await courseCategoryServices.getCategory(name);
+    const category = await courseCategoryServices.getCourseCategory(name);
 
     res.status(httpStatus.OK).json({
       success: true,
