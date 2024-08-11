@@ -22,4 +22,7 @@ export default {
   reset_pass_user: process.env.RESET_PASS_USER,
   reset_pass_user_pass: process.env.RESET_PASS_USER_PASS,
   reset_email_port: process.env.RESET_EMAIL_PORT,
+  super_admin_username: process.env.SUPER_ADMIN_USERNAME,
+  super_admin_email: process.env.SUPER_ADMIN_EMAIL,
+  super_admin_password: process.env.SUPER_ADMIN_PASSWORD,
 };
