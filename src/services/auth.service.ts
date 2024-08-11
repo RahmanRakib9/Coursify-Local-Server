@@ -59,12 +59,12 @@ const loginUser = async (userLoginPayload: ILoginUser) => {
   const accessToken = jwt.sign(
     jwtPayload,
     config.access_token_secret_key as string,
-    { expiresIn: '1d' },
+    { expiresIn: Number(config.access_token_expires_in) },
   );
   const refreshToken = jwt.sign(
     jwtPayload,
     config.refresh_token_secret_key as string,
-    { expiresIn: '10d' },
+    { expiresIn: Number(config.refresh_token_expires_in) },
   );
 
   return { accessToken, refreshToken };
@@ -118,7 +118,7 @@ const forgetPassword = async (forgetPasswordPayload: IForgetPassword) => {
   const forgetPasswordToken = jwt.sign(
     jwtPayload,
     config.forget_password_secret_key as string,
-    { expiresIn: '10m' },
+    { expiresIn: Number(config.forget_password_token_expires_in) },
   );
 
   const resetPasswordLink = `${config.reset_pass_ui_link}?email=${user.email}&token=${forgetPasswordToken}`;
@@ -196,7 +196,7 @@ const generateNewRefreshToken = async (token: string) => {
   const refreshToken = jwt.sign(
     jwtPayload,
     config.refresh_token_secret_key as string,
-    { expiresIn: '10d' },
+    { expiresIn: Number(config.refresh_token_expires_in) },
   );
 
   return { refreshToken };
