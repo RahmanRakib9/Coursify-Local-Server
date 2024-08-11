@@ -5,7 +5,11 @@ import { User_Role } from '../constants/user.constant';
 
 const router = express.Router();
 
-router.post('/', authorize(User_Role.ADMIN,User_Role.SUPER_ADMIN),courseCategoryControllers.handleCreateCourseCategory);
+router.post(
+  '/',
+  authorize(User_Role.ADMIN, User_Role.SUPER_ADMIN),
+  courseCategoryControllers.handleCreateCourseCategory,
+);
 
 router.get('/', courseCategoryControllers.handleGetAllCategories);
 
