@@ -59,12 +59,12 @@ const loginUser = async (userLoginPayload: ILoginUser) => {
   const accessToken = jwt.sign(
     jwtPayload,
     config.access_token_secret_key as string,
-    { expiresIn: Number(config.access_token_expires_in) },
+    { expiresIn:config.access_token_expires_in },
   );
   const refreshToken = jwt.sign(
     jwtPayload,
     config.refresh_token_secret_key as string,
-    { expiresIn: Number(config.refresh_token_expires_in) },
+    { expiresIn: "15d" },
   );
 
   return { accessToken, refreshToken };
