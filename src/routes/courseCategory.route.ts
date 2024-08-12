@@ -15,9 +15,17 @@ router.get('/', courseCategoryControllers.handleGetAllCategories);
 
 router.get('/:name', courseCategoryControllers.handleGetCategory);
 
-router.patch('/:id', courseCategoryControllers.handleUpdateCourseCategory);
+router.patch(
+  '/:id',
+  authorize(User_Role.USER, User_Role.ADMIN, User_Role.SUPER_ADMIN),
+  courseCategoryControllers.handleUpdateCourseCategory,
+);
 
-router.delete('/:id', courseCategoryControllers.handleDeleteCourseCategory);
+router.delete(
+  '/:id',
+  authorize(User_Role.ADMIN, User_Role.SUPER_ADMIN),
+  courseCategoryControllers.handleDeleteCourseCategory,
+);
 
 const courseCategoryRoutes = router;
 export default courseCategoryRoutes;
