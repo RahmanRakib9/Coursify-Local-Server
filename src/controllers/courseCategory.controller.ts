@@ -20,7 +20,7 @@ async function handleCreateCourseCategory(
     res.status(httpStatus.CREATED).json({
       success: true,
       statusCode: httpStatus.CREATED,
-      message: 'Category created successfully',
+      message: 'Course Category Created Successfully!',
       courseCategory,
     });
   } catch (error) {
@@ -34,13 +34,14 @@ async function handleGetAllCategories(
   next: NextFunction,
 ) {
   try {
-    const categories = await courseCategoryServices.getAllCourseCategories();
+    const courseCategories =
+      await courseCategoryServices.getAllCourseCategories();
 
     res.status(httpStatus.OK).json({
       success: true,
       statusCode: httpStatus.OK,
-      message: 'Categories retrieved successfully',
-      categories,
+      message: 'Course Categories Retrieved Successfully!',
+      courseCategories,
     });
   } catch (error) {
     next(error);
@@ -54,13 +55,13 @@ async function handleGetCategory(
 ) {
   try {
     const name = req.params.name;
-    const category = await courseCategoryServices.getCourseCategory(name);
+    const courseCategory = await courseCategoryServices.getCourseCategory(name);
 
     res.status(httpStatus.OK).json({
       success: true,
       statusCode: httpStatus.OK,
-      message: 'Category retrieved successfully',
-      category,
+      message: 'Course Category Retrieved Successfully!',
+      courseCategory,
     });
   } catch (error) {
     next(error);
@@ -80,7 +81,7 @@ async function handleUpdateCourseCategory(
     res.status(httpStatus.OK).json({
       success: true,
       statusCode: httpStatus.OK,
-      message: 'Course Category updated successfully',
+      message: 'Course Category Updated Successfully!',
     });
   } catch (error) {
     next(error);

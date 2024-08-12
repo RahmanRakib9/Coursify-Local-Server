@@ -9,13 +9,13 @@ const createCourseCategory = async (courseCategoryPayload: ICourseCategory) => {
 };
 
 const getAllCourseCategories = async () => {
-  const categories = await CourseCategory.find();
-  return categories;
+  const courseCategories = await CourseCategory.find();
+  return courseCategories;
 };
 
 const getCourseCategory = async (name: string) => {
-  const category = await CourseCategory.findOne({ name });
-  return category;
+  const courseCategory = await CourseCategory.findOne({ name });
+  return courseCategory;
 };
 
 const updateCourseCategory = async (
