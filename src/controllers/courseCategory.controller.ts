@@ -75,7 +75,7 @@ async function handleUpdateCourseCategory(
   try {
     const id = req.params.id;
 
-     await courseCategoryServices.updateCourseCategory(id,req.body);
+    await courseCategoryServices.updateCourseCategory(id, req.body);
 
     res.status(httpStatus.OK).json({
       success: true,

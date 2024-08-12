@@ -22,13 +22,17 @@ const updateCourseCategory = async (
   id: string,
   updateCourseCategoryPayload: ICourseCategory,
 ) => {
-  const courseCategory = await CourseCategory.findOne({ _id:id });
+  const courseCategory = await CourseCategory.findOne({ _id: id });
 
   if (!courseCategory) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Course Category Not Found!');
   }
 
-  const updatedCourseCategory = await CourseCategory.updateOne({ _id:id }, updateCourseCategoryPayload, { new: true })
+  const updatedCourseCategory = await CourseCategory.updateOne(
+    { _id: id },
+    updateCourseCategoryPayload,
+    { new: true },
+  );
 
   return updatedCourseCategory;
 };

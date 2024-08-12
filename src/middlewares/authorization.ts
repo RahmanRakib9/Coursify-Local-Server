@@ -24,7 +24,7 @@ export const authorize = (...requiredRoles: (keyof typeof User_Role)[]) => {
     );
     const { role, email } = verifyToken as JwtPayload;
 
-    const user = await User.findOne({email});
+    const user = await User.findOne({ email });
 
     if (!user) {
       throw new ApiError(httpStatus.NOT_FOUND, 'User Not Found!');
