@@ -87,10 +87,27 @@ async function handleUpdateCourseCategory(
   }
 }
 
+async function handleDeleteCourseCategory(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const id = req.params.id;
+
+    await courseCategoryServices.deleteCourseCategory(id);
+
+    res.end();
+  } catch (error) {
+    next(error);
+  }
+}
+
 const courseCategoryControllers = {
   handleCreateCourseCategory,
   handleGetAllCategories,
   handleGetCategory,
   handleUpdateCourseCategory,
+  handleDeleteCourseCategory,
 };
 export default courseCategoryControllers;

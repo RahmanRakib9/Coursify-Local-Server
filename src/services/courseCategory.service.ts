@@ -37,10 +37,21 @@ const updateCourseCategory = async (
   return updatedCourseCategory;
 };
 
+const deleteCourseCategory = async (id: string) => {
+  const courseCategory = await CourseCategory.findOne({ _id: id });
+
+  if (!courseCategory) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Course Category Not Found!');
+  }
+
+  await CourseCategory.deleteOne({ _id: id });
+};
+
 const courseCategoryServices = {
   createCourseCategory,
   getAllCourseCategories,
   getCourseCategory,
   updateCourseCategory,
+  deleteCourseCategory,
 };
 export default courseCategoryServices;

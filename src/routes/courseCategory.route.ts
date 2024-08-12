@@ -17,5 +17,7 @@ router.get('/:name', courseCategoryControllers.handleGetCategory);
 
 router.patch('/:id', courseCategoryControllers.handleUpdateCourseCategory);
 
+router.delete('/:id', courseCategoryControllers.handleDeleteCourseCategory);
+
 const courseCategoryRoutes = router;
 export default courseCategoryRoutes;
