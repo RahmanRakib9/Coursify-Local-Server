@@ -2,6 +2,25 @@ import IUser from '../interfaces/user.interface';
 import { User } from '../models/user.model';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../app/config/config';
+import httpStatus from 'http-status';
+import ApiError from '../errors/apiError';
+import { User_Role } from '../constants/user.constant';
+
+const createAdmin = async (createAdminPayload: IUser) => {
+  const admin = await User.findOne({ email: createAdminPayload.email });
+
+  if (admin) {
+    throw new ApiError(
+      httpStatus.CONFLICT,
+      'Admin With this email already exist!',
+    );
+  }
+
+  createAdminPayload.role = User_Role.ADMIN;
+
+  const newAdmin = await User.create(createAdminPayload);
+  return newAdmin;
+};
 
 const getUsers = async () => {
   const users = await User.find();
@@ -49,6 +68,7 @@ const updateUser = async (userId: string, userPayload: IUser) => {
 };
 
 const userServices = {
+  createAdmin,
   getUsers,
   getMe,
   getUser,

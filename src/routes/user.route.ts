@@ -5,6 +5,12 @@ import { User_Role } from '../constants/user.constant';
 
 const router = express.Router();
 
+router.post(
+  '/create-admin',
+  authorize(User_Role.SUPER_ADMIN),
+  userControllers.handleCreateAdmin,
+);
+
 router.get(
   '/',
   authorize(User_Role.ADMIN, User_Role.SUPER_ADMIN),

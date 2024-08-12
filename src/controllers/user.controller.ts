@@ -2,6 +2,28 @@ import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
 import userServices from '../services/user.service';
 import ApiError from '../errors/apiError';
+import userValidation from '../schemas/user.schema';
+
+async function handleCreateAdmin(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const createAdminPayload = req.body;
+    userValidation.createUserSchema.parse(createAdminPayload);
+    const admin = await userServices.createAdmin(createAdminPayload);
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Admin Created Successfully!',
+      admin,
+    });
+  } catch (error) {
+    next(error);
+  }
+}
 
 async function handleGetUsers(req: Request, res: Response, next: NextFunction) {
   try {
@@ -93,6 +115,7 @@ async function handleUpdateUser(
 }
 
 const userControllers = {
+  handleCreateAdmin,
   handleGetUsers,
   handleGetMe,
   handleGetUser,
