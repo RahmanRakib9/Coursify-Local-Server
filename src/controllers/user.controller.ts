@@ -10,7 +10,7 @@ async function handleGetUsers(req: Request, res: Response, next: NextFunction) {
     res.status(httpStatus.OK).json({
       success: true,
       statusCode: httpStatus.OK,
-      message: 'Users Retrieved successfully',
+      message: 'Users Retrieved Successfully!',
       users,
     });
   } catch (error) {
