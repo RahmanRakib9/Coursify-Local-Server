@@ -15,6 +15,11 @@ const getAllCourseCategories = async () => {
 
 const getCourseCategory = async (name: string) => {
   const courseCategory = await CourseCategory.findOne({ name });
+
+  if (!courseCategory) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Course Category Not Found!');
+  }
+
   return courseCategory;
 };
 
