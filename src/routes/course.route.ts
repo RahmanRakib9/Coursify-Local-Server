@@ -19,7 +19,7 @@ router.get('/:slug', courseControllers.handleGetCourseBySlug);
 
 router.post(
   '/:slug/reviews',
-  authorize(User_Role.USER),
+  authorize(User_Role.USER, User_Role.SUPER_ADMIN),
   courseControllers.handleCreateReview,
 );
 

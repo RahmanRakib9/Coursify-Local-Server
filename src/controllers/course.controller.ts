@@ -16,7 +16,7 @@ async function handleCreateCourse(
     res.status(httpStatus.CREATED).json({
       success: true,
       statusCode: httpStatus.CREATED,
-      message: 'Course created successfully',
+      message: 'Course Created Successfully!',
       course,
     });
   } catch (error) {
@@ -36,7 +36,7 @@ async function handleGetCourses(
     res.status(httpStatus.OK).json({
       success: true,
       statusCode: httpStatus.OK,
-      message: 'Courses retrieved successfully',
+      message: 'Courses Retrieved Successfully!',
       courses,
     });
   } catch (error) {
@@ -56,7 +56,7 @@ async function handleGetCourseBySlug(
     res.status(httpStatus.OK).json({
       success: true,
       statusCode: httpStatus.OK,
-      message: `${slug} course is retrieved successfully`,
+      message: `${slug} Course is Retrieved Successfully`,
       course,
     });
   } catch (error) {
@@ -76,8 +76,8 @@ async function handleGetBestCourseByTotalRating(
     res.status(httpStatus.OK).json({
       success: true,
       statusCode: httpStatus.OK,
-      message: 'Retrieved Best course based on total rating!',
-      bestCourseByTotalRating: bestCourseByTotalRating,
+      message: 'Best Course Based on Total Rating Retrieved Successfully!',
+      bestCourseByTotalRating,
     });
   } catch (error) {
     next(error);
