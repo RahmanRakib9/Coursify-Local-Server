@@ -15,5 +15,7 @@ router.get('/', courseCategoryControllers.handleGetAllCategories);
 
 router.get('/:name', courseCategoryControllers.handleGetCategory);
 
+router.patch('/:id', courseCategoryControllers.handleUpdateCourseCategory);
+
 const courseCategoryRoutes = router;
 export default courseCategoryRoutes;

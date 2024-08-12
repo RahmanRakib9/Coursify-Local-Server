@@ -67,9 +67,30 @@ async function handleGetCategory(
   }
 }
 
+async function handleUpdateCourseCategory(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const id = req.params.id;
+
+     await courseCategoryServices.updateCourseCategory(id,req.body);
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'Course Category updated successfully',
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 const courseCategoryControllers = {
   handleCreateCourseCategory,
   handleGetAllCategories,
   handleGetCategory,
+  handleUpdateCourseCategory,
 };
 export default courseCategoryControllers;
