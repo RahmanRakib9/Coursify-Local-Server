@@ -1,18 +1,20 @@
 import { z } from 'zod';
 
 const createReviewSchema = z.object({
-  courseId: z.string().optional(),
+  course: z.string().optional(),
   rating: z.number().positive({ message: 'Rating must be positive' }),
   review: z.string().trim(),
+  user: z.string().optional(),
 });
 
 const updateReviewSchema = z.object({
-  courseId: z.string().optional(),
+  course: z.string().optional(),
   rating: z
     .number()
     .positive({ message: 'Rating must be positive' })
     .optional(),
   review: z.string().trim().optional(),
+  user: z.string().optional(),
 });
 
 const reviewValidation = {
