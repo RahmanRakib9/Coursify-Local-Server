@@ -114,6 +114,24 @@ async function handleUpdateUser(
   }
 }
 
+async function handleBlockUser(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    await userServices.blockUser(req.params.userId);
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'User Blocked successfully',
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 const userControllers = {
   handleCreateAdmin,
   handleGetUsers,
@@ -121,5 +139,6 @@ const userControllers = {
   handleGetUser,
   handleDeleteUser,
   handleUpdateUser,
+  handleBlockUser,
 };
 export default userControllers;

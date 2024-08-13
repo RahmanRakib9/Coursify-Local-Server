@@ -41,5 +41,11 @@ router.patch(
   userControllers.handleUpdateUser,
 );
 
+router.patch(
+  '/:userId/block',
+  authorize(User_Role.ADMIN, User_Role.SUPER_ADMIN),
+  userControllers.handleBlockUser,
+);
+
 const userRoutes = router;
 export default userRoutes;

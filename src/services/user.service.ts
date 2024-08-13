@@ -4,7 +4,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../app/config/config';
 import httpStatus from 'http-status';
 import ApiError from '../errors/apiError';
-import { User_Role } from '../constants/user.constant';
+import { User_Role, User_Status } from '../constants/user.constant';
 import { generateCustomId } from '../utils/generateCustomId';
 
 const createAdmin = async (createAdminPayload: IUser) => {
@@ -72,6 +72,16 @@ const updateUser = async (userId: string, userPayload: IUser) => {
   return updatedUser;
 };
 
+const blockUser = async (userId: string) => {
+  const user = await User.findOne({ _id: userId });
+
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User Not Found!');
+  }
+
+  await User.findByIdAndUpdate(userId, { status: User_Status.BLOCKED });
+};
+
 const userServices = {
   createAdmin,
   getUsers,
@@ -79,5 +89,6 @@ const userServices = {
   getUser,
   deleteUser,
   updateUser,
+  blockUser,
 };
 export default userServices;
