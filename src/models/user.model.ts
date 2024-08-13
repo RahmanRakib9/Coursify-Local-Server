@@ -7,6 +7,10 @@ import bcrypt from 'bcrypt';
 
 const userSchema = new Schema<IUser>(
   {
+    id: {
+      type: String, // custom server generated id
+      requiredPaths: false,
+    },
     username: {
       type: String,
       required: [true, 'username is Required!'],

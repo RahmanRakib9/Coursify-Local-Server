@@ -14,6 +14,7 @@ import {
 } from '../interfaces/auth.interface';
 import bcrypt from 'bcrypt';
 import { sendResetEmail } from '../utils/sendResetEmail';
+import { generateCustomId } from '../utils/generateCustomId';
 
 const registerUser = async (userPayload: IUser) => {
   const user = await User.findOne({ email: userPayload.email });
@@ -26,6 +27,10 @@ const registerUser = async (userPayload: IUser) => {
   }
 
   userPayload.role = User_Role.USER;
+
+  // Generated custom id
+  const customId = await generateCustomId(userPayload.role);
+  userPayload.id = customId;
 
   const newUser = await User.create(userPayload);
   return newUser;

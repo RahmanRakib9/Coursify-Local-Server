@@ -1,6 +1,7 @@
 import { User_Role, User_Status } from '../constants/user.constant';
 
 interface IUser {
+  id: string; // custom server generated id
   username: string;
   email: string;
   password: string;
