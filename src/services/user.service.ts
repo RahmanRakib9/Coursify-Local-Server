@@ -5,6 +5,7 @@ import config from '../app/config/config';
 import httpStatus from 'http-status';
 import ApiError from '../errors/apiError';
 import { User_Role } from '../constants/user.constant';
+import { generateCustomId } from '../utils/generateCustomId';
 
 const createAdmin = async (createAdminPayload: IUser) => {
   const admin = await User.findOne({ email: createAdminPayload.email });
@@ -17,6 +18,10 @@ const createAdmin = async (createAdminPayload: IUser) => {
   }
 
   createAdminPayload.role = User_Role.ADMIN;
+
+  // Generated custom id
+  const customId = await generateCustomId(createAdminPayload.role);
+  createAdminPayload.id = customId;
 
   const newAdmin = await User.create(createAdminPayload);
   return newAdmin;
