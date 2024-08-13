@@ -4,6 +4,7 @@
 Coursify is designed to simplify the process of sharing and discovering online courses. Just like IMDB is a hub for movies, Coursify serves as a central platform where administrators can publish courses, and users can explore, review, and rate them. The platform also features a ranking system that highlights the best courses based on user ratings. Whether you're an educator looking to reach a wider audience or a learner seeking high-quality courses, Coursify aims to be the go-to solution.
 
 ## Table of Contents
+- [Features](#features)
 - [Technology Used](#technology-used)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
@@ -13,6 +14,43 @@ Coursify is designed to simplify the process of sharing and discovering online c
 - [API Documentation](#api-documentation)
 - [Testing](#testing)
 - [Contact Information](#contact-information)
+
+## Features
+
+Coursify Local Server is a comprehensive course management platform designed to enable admins to publish courses, while users can explore, review, and rate these courses. It provides a structured and organized way to manage and interact with courses, categories, reviews, and users. Below are the key features of the platform
+
+## 1. Course Management
+
+- **Create, Retrieve, and Manage Courses**: Admins and Super Admins can create and manage courses, including details such as title, instructor, category, price, language, and duration.
+
+- **Course Details**: Each course includes comprehensive information like start and end dates, provider details, tags, and a detailed description.
+- **Best Course Feature**: Users can retrieve the best-rated course based on total ratings, allowing easy discovery of top-quality content.
+
+## 2. Category Management
+
+- **Organized Course Categories**: Admins can create, retrieve, update, and delete course categories, allowing for easy categorization and filtering of courses.
+
+- **Category Search**: Users can search for courses based on specific categories, making navigation more user-friendly
+
+## 3. Review System
+
+- **User Reviews and Ratings**: Registered users can review and rate courses, contributing to the overall rating system. The reviews are stored within the course entity, allowing for easy retrieval.
+
+- **Review Management**: All reviews are accessible via public routes, providing transparency and feedback for other users.
+
+## 4. User Management
+
+- **User Roles**: The platform supports different user roles, including 'user', 'admin', and 'superAdmin', with varying levels of access and permissions.
+
+- **User Authentication**: Secure user registration and login with role-based access control. The system also supports password change functionality and account management.
+
+- **Admin Management**: Super Admins have the ability to create and manage admin accounts, ensuring that the platform is well-maintained and monitored.
+
+## 5. Authentication and Security
+
+- **Token-Based Authentication**: The platform uses JWT tokens for secure authentication. Access tokens are provided on login, and refresh tokens are managed via secure cookies.
+
+- **Password Management**: Users can change their passwords securely, with the system verifying the old password before updating to a new one.
 
 ## Technologies Used
 
@@ -131,6 +169,3 @@ For questions, feedback, or support, please contact:
 Rakibur Rahman Rakib
 [Email](rakibur.rahman.rakibb@gmail.com)
 [Linkedin](https://www.linkedin.com/in/rahmanrakib9/)
-
-
-
