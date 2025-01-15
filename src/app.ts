@@ -31,7 +31,7 @@ app.use('/api/v1/users', userRoutes);
 
 app.use('/api/v1/auth', authRoutes);
 
-app.use('/api/v1/retention',dataRetentionRoutes);
+app.use('/api/v1/retention', dataRetentionRoutes);
 
 /**Global Error Handler */
 app.use(globalErrorHandler);
