@@ -33,6 +33,15 @@ const userSchema = new Schema<IUser>(
       enum: Object.keys(User_Status),
       default: User_Status.ACTIVE,
     },
+    isDeleted: {
+      type: Number,
+      enum: [0 | 1], //0 =deleted,1=not deleted
+      default: 1,
+    },
+    expireAt: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true },
 );
