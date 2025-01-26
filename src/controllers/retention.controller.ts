@@ -20,8 +20,27 @@ async function handleRetainUser(
     next(error);
   }
 }
+async function handleRecoverUser(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  try {
+    const id = req.params.id;
+    await retainUserServices.recoverUser(id);
+
+    res.status(httpStatus.OK).json({
+      success: true,
+      statusCode: httpStatus.OK,
+      message: 'User recovery successful. Account is now active.',
+    });
+  } catch (error) {
+    next(error);
+  }
+}
 
 const retentionUserControllers = {
   handleRetainUser,
+  handleRecoverUser,
 };
 export default retentionUserControllers;

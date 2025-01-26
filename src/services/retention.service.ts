@@ -19,7 +19,22 @@ const retainUser = async (id: string) => {
   );
 };
 
+const recoverUser = async (id: string) => {
+  const user = await User.findOne({ _id: id });
+
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User Not Found!');
+  }
+
+  await User.findByIdAndUpdate(
+    id,
+    { isDeleted: 1, expireAt: null },
+    { new: true },
+  );
+};
+
 const retainUserServices = {
   retainUser,
+  recoverUser,
 };
 export default retainUserServices;
